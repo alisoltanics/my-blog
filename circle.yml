@@ -1,0 +1,15 @@
+machine:
+  pre:
+    - curl -sSL https://s3.amazonaws.com/circle-downloads/install-circleci-docker.sh | bash -s -- 1.10.0
+  services:
+    - docker
+
+  dependencies:
+    pre:
+      - pip install --upgrade pip
+      - pip install docker-compose
+
+  test:
+    override:
+      - docker-compose up -d
+      - docker-compose run python manage.py test --keepdb
