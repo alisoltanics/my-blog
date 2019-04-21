@@ -1,14 +1,13 @@
-version: 2
+version: 2 # CircleCI version
 jobs:
-  - curl -sSL https://s3.amazonaws.com/circle-downloads/install-circleci-docker.sh | bash -s -- 1.10.0
+  build:
+    machine: true # Use a Linux VM instead of docker environment
+    working_directory: ~/repo # Default working directory, where your project will be cloned
 
     steps:
-      - run:
+        - checkout
+        - run:
           name: docker-compose
           command: |
             docker-compose up -d
             python manage.py test --keepdb
-
-      - store_artifacts:
-          path: test-reports
-          destination: test-reports
