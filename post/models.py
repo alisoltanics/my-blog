@@ -12,3 +12,6 @@ class Post(models.Model):
         max_length=350
     )
     description = models.TextField()
+
+    def __str__(self):
+        return self.title
